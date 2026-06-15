@@ -9,8 +9,8 @@ app.use(express.static("public"));
 
 const db = mysql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "root123", // Change as per your DB password
+    user: "votinguser",
+    password: "Voting@123",
     database: "votingdb"
 });
 
