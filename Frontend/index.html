@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Voting Eligibility System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Online Voting System</h1>
+
+    <form action="/vote" method="POST">
+
+        <label>Voter Name</label>
+
+        <input
+            type="text"
+            name="voterName"
+            required>
+
+        <label>Age</label>
+
+        <input
+            type="number"
+            name="age"
+            min="1"
+            max="120"
+            required>
+
+        <label>Select Candidate</label>
+
+        <select name="candidate">
+
+            <option value="Candidate A">
+                Candidate A
+            </option>
+
+            <option value="Candidate B">
+                Candidate B
+            </option>
+
+            <option value="Candidate C">
+                Candidate C
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Submit Vote
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
