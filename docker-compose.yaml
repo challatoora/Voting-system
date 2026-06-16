@@ -6,6 +6,7 @@ services:
     container_name: mysql-db
 
     environment:
+      DB_HOST: 172.31.30.120
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: votingdb
       MYSQL_USER: votinguser
