@@ -151,9 +151,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Frontend"));
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "votinguser",
-    password: "Voting@123"
+    host: process.env.DB_HOST || "localhost",
+    user: process.env.DB_USER || "votinguser",
+    password: process.env.DB_PASSWORD || "Voting@123",
+    database: "votingdb"
 });
 
 db.connect((err) => {
