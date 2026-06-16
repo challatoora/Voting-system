@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+
+  mysql:
+    image: mariadb:latest
+
+    container_name: mysql-db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: votingdb
+      MYSQL_USER: votinguser
+      MYSQL_PASSWORD: Voting@123
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+
+  app:
+
+    build: .
+
+    container_name: voting-app
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      DB_HOST: mysql
+      DB_USER: votinguser
+      DB_PASSWORD: Voting@123
+
+    depends_on:
+      - mysql
+
+
+volumes:
+
+  mysql-data:
