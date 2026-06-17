@@ -1,3 +1,60 @@
+# services:
+
+#   mysql:
+#     image: mariadb:latest
+
+#     container_name: mysql-db
+
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root123
+#       MYSQL_DATABASE: votingdb
+#       MYSQL_USER: votinguser
+#       MYSQL_PASSWORD: Voting@123
+
+#     ports:
+#       - "3307:3306"
+
+#     volumes:
+#       - mysql-data:/var/lib/mysql
+
+
+#   app:
+
+#     build: .
+
+#     container_name: voting-app
+
+#     ports:
+#       - "3000:3000"
+
+#     environment:
+#       DB_HOST: mysql
+#       DB_USER: votinguser
+#       DB_PASSWORD: Voting@123
+
+#     depends_on:
+#       - mysql
+
+
+# volumes:
+
+#   mysql-data:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 services:
 
   mysql:
@@ -17,6 +74,12 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
 
   app:
 
@@ -31,9 +94,11 @@ services:
       DB_HOST: mysql
       DB_USER: votinguser
       DB_PASSWORD: Voting@123
+      DB_NAME: votingdb
 
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
 
 volumes:
