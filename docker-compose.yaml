@@ -75,10 +75,10 @@ services:
       - mysql-data:/var/lib/mysql
 
     healthcheck:
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
+    interval: 10s
+    timeout: 5s
+    retries: 10
 
 
   app:
