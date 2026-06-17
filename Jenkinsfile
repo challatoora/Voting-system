@@ -23,7 +23,12 @@ pipeline {
             }
 
         }
-
+        stage('Webhook Test') {
+            steps {
+                echo 'GitHub Webhook Triggered Successfully!'
+                sh 'date'
+            }
+        }
         stage('Stop Old Containers') {
 
             steps {
