@@ -227,60 +227,69 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD || "Voting@123"
 });
 
-db.connect((err) => {
+function connectDB() {
 
-    if (err) {
-        console.log("Database Connection Failed");
-        console.log(err);
-        return;
-    }
+    db.connect((err) => {
 
-    console.log("MySQL Connected");
+        if (err) {
+            console.log("Database Connection Failed");
+            console.log(err);
 
-    db.query(
-        "CREATE DATABASE IF NOT EXISTS votingdb",
-        (err) => {
+            console.log("Retrying in 5 seconds...");
+            setTimeout(connectDB, 5000);
 
-            if (err) {
-                console.log("Database Creation Failed");
-                console.log(err);
-                return;
-            }
+            return;
+        }
 
-            console.log("Database Ready");
+        console.log("MySQL Connected");
 
-            db.query("USE votingdb", (err) => {
+        db.query(
+            "CREATE DATABASE IF NOT EXISTS votingdb",
+            (err) => {
 
                 if (err) {
-                    console.log("Database Selection Failed");
+                    console.log("Database Creation Failed");
                     console.log(err);
                     return;
                 }
 
-                const createTableQuery = `
-                CREATE TABLE IF NOT EXISTS votes (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    voter_name VARCHAR(100) UNIQUE,
-                    age INT NOT NULL,
-                    candidate VARCHAR(100) NOT NULL,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-                `;
+                console.log("Database Ready");
 
-                db.query(createTableQuery, (err) => {
+                db.query("USE votingdb", (err) => {
 
                     if (err) {
-                        console.log("Table Creation Failed");
+                        console.log("Database Selection Failed");
                         console.log(err);
                         return;
                     }
 
-                    console.log("Votes Table Ready");
+                    const createTableQuery = `
+                    CREATE TABLE IF NOT EXISTS votes (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        voter_name VARCHAR(100) UNIQUE,
+                        age INT NOT NULL,
+                        candidate VARCHAR(100) NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                    `;
+
+                    db.query(createTableQuery, (err) => {
+
+                        if (err) {
+                            console.log("Table Creation Failed");
+                            console.log(err);
+                            return;
+                        }
+
+                        console.log("Votes Table Ready");
+                    });
                 });
-            });
-        }
-    );
-});
+            }
+        );
+    });
+}
+
+connectDB();
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "Frontend", "index.html"));
