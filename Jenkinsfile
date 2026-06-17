@@ -71,23 +71,15 @@ pipeline {
 
         }
 
-        stage('Verify Deployment') {
-
-            steps {
-
-                echo "Checking containers"
-
-                sh '''
-
-                docker ps
-
-                docker logs voting-app
-
-                '''
-
-            }
-
-        }
+        stage('Deploy Application') {
+    steps {
+        sh '''
+        docker compose up -d mysql
+        sleep 30
+        docker compose up -d app
+        '''
+    }
+}
 
 
     }
