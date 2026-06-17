@@ -140,21 +140,81 @@
 //     console.log("Server Running on Port 3000");
 // });
 
+// Part2
+// const express = require("express");
+// const mysql = require("mysql2");
+// const path = require("path");
 
-const express = require("express");
-const mysql = require("mysql2");
-const path = require("path");
+// const app = express();
 
-const app = express();
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.static("Frontend"));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("Frontend"));
+// const db = mysql.createConnection({
+//     host: process.env.DB_HOST || "localhost",
+//     user: process.env.DB_USER || "votinguser",
+//     password: process.env.DB_PASSWORD || "Voting@123",
+//     database: "votingdb"
+// });
+
+// db.connect((err) => {
+
+//     if (err) {
+//         console.log("Database Connection Failed");
+//         console.log(err);
+//         return;
+//     }
+
+//     console.log("MySQL Connected");
+
+//     db.query(
+//         "CREATE DATABASE IF NOT EXISTS votingdb",
+//         (err) => {
+
+//             if (err) {
+//                 console.log("Database Creation Failed");
+//                 console.log(err);
+//                 return;
+//             }
+
+//             console.log("Database Ready");
+
+//             db.query("USE votingdb", (err) => {
+
+//                 if (err) {
+//                     console.log("Database Selection Failed");
+//                     console.log(err);
+//                     return;
+//                 }
+
+//                 const createTableQuery = `
+//                 CREATE TABLE IF NOT EXISTS votes (
+//                     id INT AUTO_INCREMENT PRIMARY KEY,
+//                     voter_name VARCHAR(100) UNIQUE,
+//                     age INT NOT NULL,
+//                     candidate VARCHAR(100) NOT NULL
+//                 )
+//                 `;
+
+//                 db.query(createTableQuery, (err) => {
+
+//                     if (err) {
+//                         console.log("Table Creation Failed");
+//                         console.log(err);
+//                         return;
+//                     }
+
+//                     console.log("Votes Table Ready");
+//                 });
+//             });
+//         }
+//     );
+// });
 
 const db = mysql.createConnection({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "votinguser",
-    password: process.env.DB_PASSWORD || "Voting@123",
-    database: "votingdb"
+    password: process.env.DB_PASSWORD || "Voting@123"
 });
 
 db.connect((err) => {
@@ -192,7 +252,8 @@ db.connect((err) => {
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     voter_name VARCHAR(100) UNIQUE,
                     age INT NOT NULL,
-                    candidate VARCHAR(100) NOT NULL
+                    candidate VARCHAR(100) NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
                 `;
 
