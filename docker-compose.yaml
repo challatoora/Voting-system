@@ -97,7 +97,7 @@ services:
       DB_NAME: votingdb
 
     depends_on:
-      mysql:
+      - mysql
 
 
 volumes:
