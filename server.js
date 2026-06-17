@@ -211,6 +211,16 @@
 //     );
 // });
 
+const express = require("express");
+const mysql = require("mysql2");
+const path = require("path");
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("Frontend"));
+
+
 const db = mysql.createConnection({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "votinguser",
