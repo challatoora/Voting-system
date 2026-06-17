@@ -56,30 +56,32 @@ pipeline {
         }
 
         stage('Deploy Application') {
+            steps {
+                sh '''
+                docker compose up -d mysql
+                sleep 30
+                docker compose up -d app
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
 
             steps {
 
-                echo "Starting containers"
+                echo "Checking containers"
 
                 sh '''
 
-                docker compose up -d
+                docker ps
+
+                docker logs voting-app
 
                 '''
 
             }
 
         }
-
-        stage('Deploy Application') {
-    steps {
-        sh '''
-        docker compose up -d mysql
-        sleep 30
-        docker compose up -d app
-        '''
-    }
-}
 
 
     }
