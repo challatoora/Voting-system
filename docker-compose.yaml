@@ -58,7 +58,7 @@
 services:
 
   mysql:
-    image: mariadb:latest
+    image: mariadb:11
 
     container_name: mysql-db
 
