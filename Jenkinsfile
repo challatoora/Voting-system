@@ -11,6 +11,16 @@ pipeline {
 
     stages {
 
+         stage('Hello from voting') {
+
+            steps {
+
+                echo 'Hello'
+
+            }
+
+        }
+
         stage('Checkout Code') {
 
             steps {
