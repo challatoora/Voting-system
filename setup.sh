@@ -82,6 +82,8 @@ EOF
 
 echo "Database created successfully."
 
+echo "hii"
+
 
 # -------------------------------
 # 4. Import Database SQL
