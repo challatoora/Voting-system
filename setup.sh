@@ -85,9 +85,9 @@ echo "Database created successfully."
 echo "hii"
 
 
-# -------------------------------
+
 # 4. Import Database SQL
-# -------------------------------
+
 
 if [ -f DB/voting.sql ]; then
 
@@ -105,9 +105,9 @@ else
 fi
 
 
-# -------------------------------
+
 # 5. Install Node Dependencies
-# -------------------------------
+
 
 echo "Installing Node.js dependencies..."
 
@@ -116,9 +116,9 @@ npm install
 
 
 
-# -------------------------------
+
 # 6. Start Application
-# -------------------------------
+
 
 echo "Starting Voting System..."
 
@@ -129,9 +129,9 @@ echo $! > app.pid
 sleep 5
 
 
-# -------------------------------
+
 # 7. Health Check
-# -------------------------------
+
 
 echo "Checking application..."
 
