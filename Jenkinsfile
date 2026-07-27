@@ -33,18 +33,25 @@ pipeline {
             }
 
         }
-        stage('Stop Old Containers') {
+        // stage('Stop Old Containers') {
 
-            steps {
+        //     steps {
 
-                echo "Stopping old containers"
+        //         echo "Stopping old containers"
 
+        //         sh '''
+        //         docker compose down || true
+        //         '''
+
+        //     }
+
+        // }
+        stage('Delete Compose Containers') {
+             steps {
                 sh '''
-                docker compose down || true
-                '''
-
-            }
-
+                docker compose down --remove-orphans
+        '''
+             }
         }
 
 
