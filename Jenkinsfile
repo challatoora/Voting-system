@@ -15,7 +15,8 @@ pipeline {
 
             steps {
 
-                echo 'Hello'
+                echo 'Hello starting the pipeline'
+        
 
             }
 
